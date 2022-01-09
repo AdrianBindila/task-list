@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">task-list</string>
+    <string name="task_list_text">Task List</string>
+    <string name="edit_task_hint">Add a new Task</string>
+    <string name="add_btn">Add</string>
+    <string name="delete_btn">Delete</string>
+    <string name="clear_btn">Clear</string>
 </resources>
