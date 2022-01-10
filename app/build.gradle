@@ -41,6 +41,7 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     // optional - RxJava2 support for Room
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation "androidx.room:room-rxjava2:$room_version"
 
     // optional - RxJava3 support for Room

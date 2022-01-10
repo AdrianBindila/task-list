@@ -9,46 +9,32 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
-    private static final String TAG = "TaskAdapter";
+import java.util.List;
 
-    private Task[] mTasks;
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView title;
+public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
+    private List<Task> tasks;
 
-        public ViewHolder(View v) {
-            super(v);
-            // Define click listener for the ViewHolder's View.
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {//TODO: add edit dialogue
-                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                }
-            });
-            title = (TextView) v.findViewById(R.id.);
-        }
-
-        public TextView getTextView() {
-            return title;
-        }
+    public void setTasks(List<Task> tasks){
+        this.tasks=tasks;
+        notifyDataSetChanged();
     }
-    public TaskAdapter(Task[] tasks){
-        mTasks=tasks;
-    }
+
     @NonNull
     @Override
-    public TaskAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.,parent,false);
-        return new ViewHolder(v);
+    public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new TaskViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskAdapter.ViewHolder holder, int position) {
-        holder.getTextView().setText(mTasks[position].getTitle());
+    public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
+        holder.setTask(tasks.get(position));
     }
 
     @Override
     public int getItemCount() {
+        if(tasks!=null){
+            return tasks.size();
+        }
         return 0;
     }
 }
