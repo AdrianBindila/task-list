@@ -1,6 +1,8 @@
 package com.example.task_list;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -12,17 +14,15 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
 
     public TaskViewHolder(@NonNull View itemView) {
         super(itemView);
-        this.taskTitle=itemView.findViewById(R.id.editText);
+        this.taskTitle=itemView.findViewById(R.id.textView);
+    }
+    public void bind(String text) {
+        taskTitle.setText(text);
     }
 
-    public void setTask(Task task){
-        taskTitle.setText(task.getTitle());
-    }
-
-    public TextView getTaskTitle() {
-        return taskTitle;
-    }
-    public Task getTask(){
-        return new Task(taskTitle.toString());
+    static TaskViewHolder create(ViewGroup parent) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recyclerview_item, parent, false);
+        return new TaskViewHolder(view);
     }
 }

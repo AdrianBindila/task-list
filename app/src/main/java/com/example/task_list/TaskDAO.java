@@ -1,5 +1,8 @@
 package com.example.task_list;
 
+import static androidx.room.OnConflictStrategy.IGNORE;
+
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -14,44 +17,15 @@ import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface TaskDAO {
-    @Insert
-    Completable insert(Task... tasks);
+    @Query("SELECT * FROM Task")
+    LiveData<List<Task>> getTasks();
+
+    @Insert(onConflict = IGNORE)
+    void insert(Task task);
 
     @Delete
-    Single<Integer> delete(Task... tasks);
+    void delete(Task task);
 
-    @Query("DELETE FROM Task WHERE title = :title")
-    Single<Integer> deleteByTitle(String title);
-
-    @Query("SELECT title FROM Task WHERE title = :title")
-    Flowable<List<String>> getTitle(String title);
-
-    @Query("SELECT * FROM Task")
-    Flowable<List<Task>> getAllTask();
-
-//    @Query("SELECT * FROM Task")
-//    List<Task> getAll();
-//
-//    @Query("SELECT * FROM Task WHERE uid IN (:taskIds)")
-//    List<Task> loadAllByIds(int[] taskIds);
-//
-//    @Insert
-//    void insertAll(Task... tasks);
-//
-//    @Insert
-//    void insert(Task task);
-//
-//    @Delete
-//    void deleteTasks(Task... tasks);
-//
-//    @Delete
-//    void delete(Task task);
-//
-//    @Update
-//    void updateTasks(Task... tasks);
-//
-//    @Update
-//    void updateTask(Task task);
-
-
+    @Query("DELETE FROM Task")
+    void deleteAll();
 }
